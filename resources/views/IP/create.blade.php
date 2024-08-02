@@ -105,7 +105,8 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
                     <h6 class="mb-4">Create Implementation Partner</h6>
-                    <form>
+                    <form method="post" action="{{route('ip_signup')}}" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="mb-3 col-6">
                                 <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -114,12 +115,17 @@
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="exampleInputPassword1" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="exampleInputPassword1">
+                                <input type="email" class="form-control" name="email">
+                                <input type="hidden" name="role" value="2">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="exampleInputPassword1" class="form-label">P</label>
+                                <input type="email" class="form-control" name="email">
                                 <input type="hidden" name="role" value="2">
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="exampleInputPassword1" class="form-label">Area</label>
-                                <select name="" id="" class="form-control">
+                                <select name="area_id" id="area" class="form-control">
                                     <option value='' selected>Select Area</option>
                                     @foreach ($areas as $area)
                                         <option value="{{$area->id}}">{{$area->name}}</option>
@@ -129,38 +135,40 @@
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="exampleInputPassword1" class="form-label">Lot</label>
-                                <select name="" id="" class="form-control">
+                                <select name="lot_id" id="lot" class="form-control">
                                     <option value='' selected>Select Lot</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="exampleInputPassword1" class="form-label">District</label>
-                                <select name="" id="" class="form-control">
+                                <select name="district_id" id="district" class="form-control">
                                     <option value='' selected>Select District</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">District</label>
-                                <select name="" id="" class="form-control">
+                                <label for="exampleInputPassword1" class="form-label">Tehsil</label>
+                                <select name="tehsil_id" id="tehsil" class="form-control">
                                     <option value='' selected>Select Tehsil</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="exampleInputPassword1" class="form-label">Uc</label>
-                                <select name="" id="" class="form-control">
+                                <select name="uc_id" id="uc" class="form-control">
                                     <option value='' selected>Select Uc</option>
                                 </select>
 
                             </div>
+                            <div class="mb-3 col-6">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>                            
+                                <input type="password" class="form-control" id="password"  name="password">
+                                <a class="btn btn-danger my-2" id="generate_password">Generate Password</a>
+                            </div>
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
+                      
                         <button type="submit" class="btn btn-primary">Sign in</button>
                     </form>
                 </div>
@@ -169,6 +177,4 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="{{asset('dashboard\js\ip_create.js')}}"></script>
-
-
     @endsection

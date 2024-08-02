@@ -50,4 +50,12 @@ Route::get('/notfound', function () {
 Route::prefix('admin/ip')->middleware('auth.redirect')->group(function () {
     Route::get('/create', [IPController::class, 'create'])->name('ip.create');
     Route::get('/list', [IPController::class, 'index'])->name('ip.list');
+    Route::post('/signup', [IPController::class, 'ip_signup'])->name('ip_signup');
+
 });
+
+
+Route::get('/filter/lot', [App\Http\Controllers\HomeController::class, 'filter_lot'])->name('filter_lot');
+Route::get('/filter/districts', [App\Http\Controllers\HomeController::class, 'filter_districts'])->name('filter_districts');
+Route::get('/filter/tehsil', [App\Http\Controllers\HomeController::class, 'filter_tehsil'])->name('filter_tehsil');
+Route::get('/filter/uc', [App\Http\Controllers\HomeController::class, 'filter_uc'])->name('filter_uc');
