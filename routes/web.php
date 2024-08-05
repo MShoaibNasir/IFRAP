@@ -51,6 +51,8 @@ Route::prefix('admin/ip')->middleware('auth.redirect')->group(function () {
     Route::get('/create', [IPController::class, 'create'])->name('ip.create');
     Route::get('/list', [IPController::class, 'index'])->name('ip.list');
     Route::post('/signup', [IPController::class, 'ip_signup'])->name('ip_signup');
+    Route::get('/delete/{id}', [IPController::class, 'delete'])->name('ip.delete');
+    Route::get('/block/{id}', [IPController::class, 'block'])->name('ip.block');
 
 });
 

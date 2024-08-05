@@ -109,22 +109,18 @@
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-6">
-                                <label for="exampleInputEmail1" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="name">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name">
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Email</label>
+                                <label class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email">
                                 <input type="hidden" name="role" value="2">
                             </div>
+
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">P</label>
-                                <input type="email" class="form-control" name="email">
-                                <input type="hidden" name="role" value="2">
-                            </div>
-                            <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Area</label>
+                                <label class="form-label">Area</label>
                                 <select name="area_id" id="area" class="form-control">
                                     <option value='' selected>Select Area</option>
                                     @foreach ($areas as $area)
@@ -134,42 +130,46 @@
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Lot</label>
-                                <select name="lot_id" id="lot" class="form-control">
+                                <label class="form-label">Lot</label>
+                                <select name="lot_id" class="form-control" id="lot">
                                     <option value='' selected>Select Lot</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">District</label>
+                                <label class="form-label">District</label>
                                 <select name="district_id" id="district" class="form-control">
                                     <option value='' selected>Select District</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Tehsil</label>
+                                <label class="form-label">Tehsil</label>
                                 <select name="tehsil_id" id="tehsil" class="form-control">
                                     <option value='' selected>Select Tehsil</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Uc</label>
+                                <label class="form-label">Uc</label>
                                 <select name="uc_id" id="uc" class="form-control">
                                     <option value='' selected>Select Uc</option>
                                 </select>
 
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>                            
-                                <input type="password" class="form-control" id="password"  name="password">
+                                <label class="form-label">Profile Image</label>
+                                <input type="file" name="image" class="form-control">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
                                 <a class="btn btn-danger my-2" id="generate_password">Generate Password</a>
                             </div>
                         </div>
 
-                      
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </form>
                 </div>
             </div>
@@ -177,4 +177,37 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="{{asset('dashboard\js\ip_create.js')}}"></script>
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+                toast: true,         // This enables the toast mode
+                position: 'top-end', // Position of the toast
+                showConfirmButton: false, // Hides the confirm button
+                timer: 3000          // Time to show the toast in milliseconds
+            });
+        </script>
+    @endif
+    @if(session('success'))
+        <script>
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('success') }}"
+            });
+        </script>
+    @endif
     @endsection
