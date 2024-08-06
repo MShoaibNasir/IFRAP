@@ -14,18 +14,29 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4">Register Area</h6>
-                    <form method="post" action="{{route('area.store')}}" enctype="multipart/form-data">
+                    <h6 class="mb-4">Update District</h6>
+                    <form method="post" action="{{route('district.update',[$district->id])}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-6">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" value="{{$district->name}}" name="name">
+                            </div>
+
+                            @php
+                                $lots = \DB::table('lots')->get();
+                            @endphp
+                            <div class="mb-3 col-6">
+                                <label class="form-label">Lots</label>
+                                <select name="lot_id" class="form-control">
+                                    <option value="">Select Lot</option>
+                                    @foreach ($lots as $item)
+                                        <option value="{{$item->id}}" {{$district->lot_id==$item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-
-
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
             </div>

@@ -5,6 +5,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IPController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\LotController;
+use App\Http\Controllers\DistrictController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +29,7 @@ use App\Http\Controllers\AreaController;
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth.redirect');
 Route::post('/login/user', [ProfileController::class, 'customLogin'])->name('customLogin');
 Route::get('/user/logout', [ProfileController::class, 'logout'])->name('user.logout');
-Route::middleware(['auth', 'user-access:user'])->group(function () {  
+Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
@@ -43,7 +46,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/notfound', function () {
-    
+
     return view('dashboard.form');
 });
 
@@ -56,11 +59,37 @@ Route::prefix('admin/ip')->middleware('auth.redirect')->group(function () {
     Route::get('/block/{id}', [IPController::class, 'block'])->name('ip.block');
 
 });
+
+
+
+// area managemnt
 Route::prefix('admin/area')->middleware('auth.redirect')->group(function () {
     Route::get('/create', [AreaController::class, 'create'])->name('area.create');
-    Route::get('/store', [AreaController::class, 'store'])->name('area.store');
+    Route::post('/store', [AreaController::class, 'store'])->name('area.store');
     Route::get('/list', [AreaController::class, 'index'])->name('area.list');
     Route::get('/delete/{id}', [AreaController::class, 'delete'])->name('area.delete');
+    Route::get('/edit/{id}', [AreaController::class, 'edit'])->name('area.edit');
+    Route::post('/update/{id}', [AreaController::class, 'update'])->name('area.update');
+});
+
+
+// lot management
+Route::prefix('admin/lot')->middleware('auth.redirect')->group(function () {
+    Route::get('/create', [LotController::class, 'create'])->name('lot.create');
+    Route::post('/store', [LotController::class, 'store'])->name('lot.store');
+    Route::get('/list', [LotController::class, 'index'])->name('lot.list');
+    Route::get('/delete/{id}', [LotController::class, 'delete'])->name('lot.delete');
+    Route::get('/edit/{id}', [LotController::class, 'edit'])->name('lot.edit');
+    Route::post('/update/{id}', [LotController::class, 'update'])->name('lot.update');
+});
+// district management
+Route::prefix('admin/district')->middleware('auth.redirect')->group(function () {
+    Route::get('/create', [DistrictController::class, 'create'])->name('district.create');
+    Route::post('/store', [DistrictController::class, 'store'])->name('district.store');
+    Route::get('/list', [DistrictController::class, 'index'])->name('district.list');
+    Route::get('/delete/{id}', [DistrictController::class, 'delete'])->name('district.delete');
+    Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
+    Route::post('/update/{id}', [DistrictController::class, 'update'])->name('district.update');
 });
 
 

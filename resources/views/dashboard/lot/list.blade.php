@@ -13,50 +13,38 @@
 <!-- Content Start -->
 <div class="content">
     <!-- Navbar Start -->
-    @include('dashboard.layout.navbar')
+     @include('dashboard.layout.navbar')
+
     <!-- Navbar End -->
 
 
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Implementation  Partner</h6>
-                <a href="{{route('ip.create')}}">Create</a>
+                <h6 class="mb-0">Recent Salse</h6>
+                <a href="{{route('lot.create')}}">Create Lots</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark">
                             <th scope="col">S no</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">email</th>
-                            <th scope="col">area</th>
-                            <th scope="col">lot</th>
-                            <th scope="col">district</th>
-                            <th scope="col">tehsil</th>
-                            <th scope="col">uc</th>
-                            <th scope="col">Date of register</th>
-                            <th scope="col">Delete</th>
-                            <th scope="col">Edit</th>
+                            <th scope="col">Lot Name</th>
+                            <th scope="col">Area Name</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach($data as $item)
+                 
+                        @foreach($lots as $item)
                             <tr>
                                 <td>{{$loop->index + 1}}</td>
-                                <td>{{$item->username}}</td>
-                                <td>{{$item->user_email}}</td>
+                                <td>{{$item->name}}</td>
                                 <td>{{$item->area_name}}</td>
-                                <td>{{$item->lot_name}}</td>
-                                <td>{{$item->district_name}}</td>
-                                <td>{{$item->tehsil_name}}</td>
-                                <td>{{$item->uc_name}}</td>
-                                <td>{{$item->date_of_registeration}}</td>
-                                <td><a class="btn btn-sm btn-danger" href="{{route('ip.delete', [$item->id])}}">Delete</a>
-                                </td>
-                                <td><a class="btn btn-sm btn-secondary" href="{{route('ip.block', [$item->id])}}">
-                                        {{$item->status == 1 ? "Block" : 'Unblock'}} </a></td>
+                              
+                                <td><a class="btn btn-sm btn-success" href="{{route('lot.edit', [$item->id])}}">Edit</a>
+                                <a class="btn btn-sm btn-danger" href="{{route('lot.delete', [$item->id])}}">Delete</a></td>
+                                
                             </tr>
                         @endforeach
                     </tbody>
