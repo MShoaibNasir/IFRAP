@@ -77,7 +77,100 @@ class SurveyController extends BaseController
 
     // }
 
-    
+
+
+
+
+    public function survey_form(Request $request)
+    {
+        // first of all get question title
+        $question_titles = DB::table('question_title')->get();
+        $questions = [];
+        foreach ($question_titles as $item) {
+            $question_one = DB::table('question_one')->where('question_title_id', $item->id)->get();
+            if(count($question_one)>0){
+                $questions[$item->name] = $question_one;
+            }else{
+                $questions[$item->name] = null;
+            }
+          
+            foreach ($question_one as $ques_one) {
+                $options_one = DB::table('options_one')->where('question_one_id', $ques_one->id)->get();
+
+                if (count($options_one) > 0) {
+                    $ques_one->options = $options_one;
+                } else {
+
+                    $ques_one->options = null;
+                }
+                foreach ($options_one as $option_one) {
+                    $question_two = DB::table('question_two')->where('options_one_id', $option_one->id)->get();
+                    if (count($question_two) > 0) {
+                        $option_one->question = $question_two;
+                    } else {
+                        $option_one->question = null;
+                    }
+
+
+                    foreach ($question_two as $ques_two) {
+                        $options_two = DB::table('options_two')->where('question_two_id', $ques_two->id)->get();
+
+                        if (count($options_two) > 0) {
+                            $ques_two->options = $options_two;
+                        } else {
+                            $ques_two->options = null;
+                        }
+
+
+
+                        foreach ($options_two as $opt_two) {
+                            $question_three = DB::table('question_three')->where('options_two_id', $opt_two->id)->get();
+
+                            if (count($question_three) > 0) {
+                                $opt_two->question = $question_three;
+                            } else {
+                                $opt_two->question = null;
+                            }
+
+                            foreach ($question_three as $quest_three) {
+                                $opt_three = DB::table('option_three')->where('question_three_id', $quest_three->id)->get();
+                                if (count($opt_three) > 0) {
+                                    $quest_three->option = $opt_three;
+                                } else {
+                                    $quest_three->option = null;
+                                }
+
+
+                                foreach ($opt_three as $opt_three) {
+                                    $que_four = DB::table('question_four')->where('option_three_id', $opt_three->id)->get();
+                                    if (count($que_four) > 0) {
+                                        $opt_three->question = $que_four;
+                                    } else {
+                                        $opt_three->question = null;
+                                    }
+
+
+                                }
+                            }
+                        }
+
+
+
+                    }
+
+                }
+
+
+
+            }
+        }
+
+
+        return $questions;
+
+    }
+
+
 
 
 

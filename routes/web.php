@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IPController;
+use App\Http\Controllers\AreaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +55,12 @@ Route::prefix('admin/ip')->middleware('auth.redirect')->group(function () {
     Route::get('/delete/{id}', [IPController::class, 'delete'])->name('ip.delete');
     Route::get('/block/{id}', [IPController::class, 'block'])->name('ip.block');
 
+});
+Route::prefix('admin/area')->middleware('auth.redirect')->group(function () {
+    Route::get('/create', [AreaController::class, 'create'])->name('area.create');
+    Route::get('/store', [AreaController::class, 'store'])->name('area.store');
+    Route::get('/list', [AreaController::class, 'index'])->name('area.list');
+    Route::get('/delete/{id}', [AreaController::class, 'delete'])->name('area.delete');
 });
 
 
