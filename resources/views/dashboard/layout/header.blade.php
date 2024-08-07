@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
@@ -7,8 +8,14 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     <!-- Favicon -->
+    <style>
+        a.nav-link.dropdown-toggle {
+            font-size: 14px;
+        }
+    </style>
     @include('dashboard.layout.css')
 </head>
+
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Sidebar Start -->

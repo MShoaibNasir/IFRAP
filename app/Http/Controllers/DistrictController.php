@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\District;
 use DB;
+use Auth;
 
 class DistrictController extends Controller
 {
@@ -24,7 +25,7 @@ class DistrictController extends Controller
             $data = $request->all();
 
             $district = District::create($data);
-
+            addLogs('create district named '.$district->name,Auth::user()->id);
             $district = DB::table('districts')
                 ->join('lots', 'districts.lot_id', '=', 'lots.id')
                 ->select('districts.id as id', 'districts.name as name', 'lots.name as lot_name')
@@ -41,6 +42,7 @@ class DistrictController extends Controller
     public function delete(Request $request, $id)
     {
         $district = District::find($id);
+        addLogs('delete district named '.$district->name,Auth::user()->id);
         $district->delete();
         return redirect()->back()->with('success', 'You Delete District Successfully');
     }
@@ -69,6 +71,7 @@ class DistrictController extends Controller
             ]);
             $data = $request->all();
             $district = District::find($id);
+            addLogs('update district named '.$district->name,Auth::user()->id);
             $district->fill($data)->save();
             $district = DB::table('districts')
             ->join('lots', 'districts.lot_id', '=', 'lots.id')

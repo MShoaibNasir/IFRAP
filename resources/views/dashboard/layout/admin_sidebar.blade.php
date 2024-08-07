@@ -43,6 +43,21 @@
                             <a href="{{route('district.list')}}" class="dropdown-item">List</a>
                         </div>
                     </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Tehsil Management</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{{route('tehsil.create')}}" class="dropdown-item">Create</a>
+                            <a href="{{route('tehsil.list')}}" class="dropdown-item">List</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>UC Management</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{{route('uc.create')}}" class="dropdown-item">Create</a>
+                            <a href="{{route('uc.list')}}" class="dropdown-item">List</a>
+                        </div>
+                    </div>
+                   
                    
              
                 </div>

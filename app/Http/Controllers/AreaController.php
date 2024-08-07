@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Area;
 use DB;
+use Auth;
 
 class AreaController extends Controller
 {
@@ -16,13 +17,12 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         try {
-
             $request->validate([
                 'name' => 'required|string|max:255',
             ]);
             $data = $request->all();
-
             $area = Area::create($data);
+            addLogs('create area named '.$request->name,Auth::user()->id);
 
             $area = DB::table('areas')->get();
             return redirect()->route('area.list')->with(['area' => $area, 'success' => 'You create an area successfully!']);
@@ -35,8 +35,9 @@ class AreaController extends Controller
     }
     public function delete(Request $request, $id)
     {
-        $user = Area::find($id);
-        $user->delete();
+        $area = Area::find($id);
+        addLogs('delete area named '.$area->name,Auth::user()->id);
+        $area->delete();
         return redirect()->back()->with('success', 'You Delete Area Successfully');
     }
 
@@ -60,6 +61,7 @@ class AreaController extends Controller
             ]);
             $data = $request->all();
             $area = Area::find($id);
+            addLogs('update area named '.$area->name,Auth::user()->id);
             $area->fill($data)->save();
             $area = DB::table('areas')->get();
             return redirect()->route('area.list')->with(['area' => $area, 'success' => 'You update an area successfully!']);

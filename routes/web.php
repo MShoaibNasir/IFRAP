@@ -7,6 +7,8 @@ use App\Http\Controllers\IPController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\LotController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\TehsilController;
+use App\Http\Controllers\UcController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/notfound', function () {
-
     return view('dashboard.form');
 });
 
@@ -91,6 +92,40 @@ Route::prefix('admin/district')->middleware('auth.redirect')->group(function () 
     Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
     Route::post('/update/{id}', [DistrictController::class, 'update'])->name('district.update');
 });
+
+
+
+// tehsil  management
+
+Route::prefix('admin/tehsil')->middleware('auth.redirect')->group(function () {
+    Route::get('/create', [TehsilController::class, 'create'])->name('tehsil.create');
+    Route::post('/store', [TehsilController::class, 'store'])->name('tehsil.store');
+    Route::get('/list', [TehsilController::class, 'index'])->name('tehsil.list');
+    Route::get('/delete/{id}', [TehsilController::class, 'delete'])->name('tehsil.delete');
+    Route::get('/edit/{id}', [TehsilController::class, 'edit'])->name('tehsil.edit');
+    Route::post('/update/{id}', [TehsilController::class, 'update'])->name('tehsil.update');
+});
+
+
+
+// UC  management
+
+Route::prefix('admin/uc')->middleware('auth.redirect')->group(function () {
+    Route::get('/create', [UcController::class, 'create'])->name('uc.create');
+    Route::post('/store', [UcController::class, 'store'])->name('uc.store');
+    Route::get('/list', [UcController::class, 'index'])->name('uc.list');
+    Route::get('/delete/{id}', [UcController::class, 'delete'])->name('uc.delete');
+    Route::get('/edit/{id}', [UcController::class, 'edit'])->name('uc.edit');
+    Route::post('/update/{id}', [UcController::class, 'update'])->name('uc.update');
+});
+
+
+
+
+
+
+
+
 
 
 Route::get('/filter/lot', [App\Http\Controllers\HomeController::class, 'filter_lot'])->name('filter_lot');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lot;
 use DB;
+use Auth;
 
 class LotController extends Controller
 {
@@ -22,9 +23,8 @@ class LotController extends Controller
                 'area_id' => 'required'
             ]);
             $data = $request->all();
-
             $lot= Lot::create($data);
-
+            addLogs('create lot named '.$request->name,Auth::user()->id);
             $lots = DB::table('lots')
             ->join('areas','lots.area_id','=','areas.id')
              ->select('lots.id as id','lots.name as name','areas.name as area_name')
@@ -41,7 +41,7 @@ class LotController extends Controller
     public function delete(Request $request, $id)
     {
         $lot = Lot::find($id);
-       
+        addLogs('delete Lot named '.$lot->name,Auth::user()->id);
         $lot->delete();
         return redirect()->back()->with('success', 'You Delete lot Successfully');
     }
@@ -70,6 +70,7 @@ class LotController extends Controller
             ]);
             $data = $request->all();
             $lot = Lot::find($id);
+            addLogs('update lot named '.$lot->name,Auth::user()->id);
             $lot->fill($data)->save();
             $lot = DB::table('lots')->get();
             return redirect()->route('lot.list')->with(['area' => $lot, 'success' => 'You update  lot successfully!']);
